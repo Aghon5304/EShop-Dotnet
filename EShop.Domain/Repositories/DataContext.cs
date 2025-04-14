@@ -1,4 +1,5 @@
-﻿using Projekt.Models;
+﻿using EShop.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,8 @@ using System.Threading.Tasks;
 
 
 namespace EShop.Domain.Repositories;
-public interface IDataContext;
-
-public class DataContext 
+public class DataContext : DbContext
 {
-	new BaseModel BaseModel { get; set; }
-	new cate
+	public DataContext(DbContextOptions<DataContext> options) : base(options) {}
+	public DbSet<Product> Products { get; set; }
 }

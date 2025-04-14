@@ -1,11 +1,15 @@
 ﻿namespace EShop.Domain.Models
 {
-	public class BaseModel
-	{
-		public Boolean deleted { get; set; }
-		public Guid created_by { get; set; }
-		public DateTime created_at { get; set; }
-		public Guid updated_by { get; set; }
-		public DateTime updated_at { get; set; }
-	}
+    public class BaseModel
+    {
+        public bool Deleted { get; set; } = false;
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public Guid CreatedBy { get; set; }
+
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+        public Guid UpdatedBy { get; set; }
+    }
 }

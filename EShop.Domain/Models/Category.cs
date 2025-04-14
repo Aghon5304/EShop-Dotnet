@@ -1,16 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EShop.Domain.Models
+﻿namespace EShop.Domain.Models
 {
-	public class Category:BaseModel
-	{
-		[Key]
-		public int Id { get; set; }
+    public class Category : BaseModel
+    {
+        public int Id { get; set; }
 
-		[MaxLength(255)]
-		[Required]
-		public string Name { get; set; }	
-
-		
-	}	
+        public string Name { get; set; } = string.Empty;
+    }
 }

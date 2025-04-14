@@ -1,7 +1,44 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshopservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|solutionrelative:eshopservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A35EDB7C-273E-41B5-9962-B5251A12B84E}|EShop.Domain\\EShop.Domain.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshop.domain\\seeders\\ieshopseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A35EDB7C-273E-41B5-9962-B5251A12B84E}|EShop.Domain\\EShop.Domain.csproj|solutionrelative:eshop.domain\\seeders\\ieshopseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A7C6827-D8C8-4B16-BF05-26ADD09186E0}|EShop.Application\\EShop.Application.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshop.application\\service\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A7C6827-D8C8-4B16-BF05-26ADD09186E0}|EShop.Application\\EShop.Application.csproj|solutionrelative:eshop.application\\service\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A7C6827-D8C8-4B16-BF05-26ADD09186E0}|EShop.Application\\EShop.Application.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshop.application\\service\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7A7C6827-D8C8-4B16-BF05-26ADD09186E0}|EShop.Application\\EShop.Application.csproj|solutionrelative:eshop.application\\service\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshopservice\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|solutionrelative:eshopservice\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E3E67704-EBAD-41F3-BC79-517B10ED6488}|EShop.Application.Tests\\EShop.Application.Tests.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshop.application.tests\\service\\creditcardtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E3E67704-EBAD-41F3-BC79-517B10ED6488}|EShop.Application.Tests\\EShop.Application.Tests.csproj|solutionrelative:eshop.application.tests\\service\\creditcardtests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshopservice\\eshopservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|solutionrelative:eshopservice\\eshopservice.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshopservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{91F81F87-AF68-44A9-9614-295C7FC0515E}|EShopService\\EShopService.csproj|solutionrelative:eshopservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A35EDB7C-273E-41B5-9962-B5251A12B84E}|EShop.Domain\\EShop.Domain.csproj|c:\\users\\minec\\source\\repos\\eshop-dotnet\\eshop.domain\\exceptions\\creditcard\\cardnumberinvalidexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A35EDB7C-273E-41B5-9962-B5251A12B84E}|EShop.Domain\\EShop.Domain.csproj|solutionrelative:eshop.domain\\exceptions\\creditcard\\cardnumberinvalidexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +46,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IEShopSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Domain\\Seeders\\IEShopSeeder.cs",
+              "RelativeDocumentMoniker": "EShop.Domain\\Seeders\\IEShopSeeder.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Domain\\Seeders\\IEShopSeeder.cs",
+              "RelativeToolTip": "EShop.Domain\\Seeders\\IEShopSeeder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T08:42:11.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShopService\\Program.cs",
+              "RelativeDocumentMoniker": "EShopService\\Program.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShopService\\Program.cs",
+              "RelativeToolTip": "EShopService\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T08:39:40.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Application\\Service\\ProductService.cs",
+              "RelativeDocumentMoniker": "EShop.Application\\Service\\ProductService.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Application\\Service\\ProductService.cs",
+              "RelativeToolTip": "EShop.Application\\Service\\ProductService.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowAUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T08:38:30.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CreditcardTests.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Application.Tests\\Service\\CreditcardTests.cs",
+              "RelativeDocumentMoniker": "EShop.Application.Tests\\Service\\CreditcardTests.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Application.Tests\\Service\\CreditcardTests.cs",
+              "RelativeToolTip": "EShop.Application.Tests\\Service\\CreditcardTests.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T08:35:54.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShopService\\Dockerfile",
+              "RelativeDocumentMoniker": "EShopService\\Dockerfile",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShopService\\Dockerfile",
+              "RelativeToolTip": "EShopService\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-04-11T08:28:27.268Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Application\\Service\\IProductService.cs",
+              "RelativeDocumentMoniker": "EShop.Application\\Service\\IProductService.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Application\\Service\\IProductService.cs",
+              "RelativeToolTip": "EShop.Application\\Service\\IProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-11T08:11:07.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShopService\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "EShopService\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShopService\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "EShopService\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAUwDgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T10:56:23.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EShopService.csproj",
+              "DocumentMoniker": "C:\\Users\\minec\\Source\\Repos\\EShop-Dotnet\\EShopService\\EShopService.csproj",
+              "RelativeDocumentMoniker": "EShopService\\EShopService.csproj",
+              "ToolTip": "C:\\Users\\minec\\Source\\Repos\\EShop-Dotnet\\EShopService\\EShopService.csproj",
+              "RelativeToolTip": "EShopService\\EShopService.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-10T10:55:51.831Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CardNumberInvalidException.cs",
+              "DocumentMoniker": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Domain\\Exceptions\\CreditCard\\CardNumberInvalidException.cs",
+              "RelativeDocumentMoniker": "EShop.Domain\\Exceptions\\CreditCard\\CardNumberInvalidException.cs",
+              "ToolTip": "C:\\Users\\minec\\source\\repos\\EShop-Dotnet\\EShop.Domain\\Exceptions\\CreditCard\\CardNumberInvalidException.cs",
+              "RelativeToolTip": "EShop.Domain\\Exceptions\\CreditCard\\CardNumberInvalidException.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T10:55:38.334Z",
+              "EditorCaption": ""
             }
           ]
         }
