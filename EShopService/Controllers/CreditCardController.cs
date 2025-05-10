@@ -4,18 +4,14 @@ using System.Linq.Expressions;
 using EShop.Application.Service;
 using EShop.Domain.Exceptions.CreditCard;
 using System.Net;
-namespace EShop.Domain.Controllers;
+namespace EShopService.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CreditCardController : ControllerBase
+public class CreditCardController(ICreditCardService creditCardService) : ControllerBase
 {
-	protected ICreditCardService _creditCardService;
+	protected ICreditCardService _creditCardService = creditCardService;
 
-	public CreditCardController(ICreditCardService creditCardService)
-	{
-		_creditCardService = creditCardService;
-	}
 	[HttpGet]
 	public IActionResult Get(string cardnumber)
 	{
@@ -26,15 +22,15 @@ public class CreditCardController : ControllerBase
 		}
 		catch (CardNumberTooLongException ex)
 		{
-			return StatusCode((int)HttpStatusCode.RequestUriTooLong, new { error = "The card number is too long", code = (int)HttpStatusCode.RequestUriTooLong });
+			return StatusCode((int)HttpStatusCode.RequestUriTooLong, new { error = ex.Message, code = (int)HttpStatusCode.RequestUriTooLong });
 		}
-		catch (CardNumberTooShortException)
+		catch (CardNumberTooShortException ex)
 		{
-			return BadRequest( new { error = "The card number is too short", code = (int)HttpStatusCode.BadRequest });
+			return BadRequest( new { error = ex.Message, code = (int)HttpStatusCode.BadRequest });
 		}
-		catch (CardNumberInvalidException)
+		catch (CardNumberInvalidException ex)
 		{
-			return BadRequest(new { error = "Invalid Card Number", code = (int)HttpStatusCode.BadRequest });
+			return BadRequest(new { error = ex.Message, code = (int)HttpStatusCode.BadRequest });
 		}
 	}
 }

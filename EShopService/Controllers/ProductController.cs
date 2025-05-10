@@ -1,15 +1,16 @@
 ﻿using EShop.Application.Service;
 using Microsoft.AspNetCore.Mvc;
 using EShop.Domain.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EShopService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
-    {
-        private IProductService _productService;
+    public class ProductController(IProductService productService) : ControllerBase
+	{
+		private readonly IProductService _productService = productService;
+
 		// GET: api/<ProductController>
 		[HttpGet]
         public async Task<ActionResult> Get()
@@ -33,24 +34,27 @@ namespace EShopService.Controllers
             }
 		}
 
-        // POST api/<ProductController>
-        [HttpPost]
+		// POST api/<ProductController>
+		[Authorize(Policy = "EmployeeOnly")]
+		[HttpPost]
         public async Task<ActionResult> Post([FromBody]Product product)
         {
             var result = await _productService.Add(product);
             return Ok(result);
 		}
 
-        // PUT api/<ProductController>/id
-        [HttpPut("{id}")]
+		// PUT api/<ProductController>/id
+		[Authorize(Policy = "EmployeeOnly")]
+		[HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody]Product product)
         {
             var result = await _productService.Update(product);
 			return Ok(result);
 		}
 
-        // DELETE api/<ProductController>/
-        [HttpDelete("{id}")]
+		// DELETE api/<ProductController>/
+		[Authorize(Policy = "EmployeeOnly")]
+		[HttpDelete("{id}")]
 		public async Task<ActionResult> Delete(int id)
 		{
 			var product = await _productService.GetAsync(id);

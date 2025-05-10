@@ -1,27 +1,31 @@
-using EShop.Application.Service;
-using EShop.Domain;
-using EShop.Domain.Repositories;
-using EShop.Domain.Seeders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Cryptography;
+using System.Text;
+using User.Domain.Exceptions;
+using UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<ICreditCardService, CreditcardService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"), ServiceLifetime.Transient);
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
+
+
+
+builder.Services.AddAuthorizationBuilder()
+	.AddPolicy("AdminOnly", policy =>
+		policy.RequireRole("Administrator"));
+
+// JWT config
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+builder.Services.Configure<JwtSettings>(jwtSettings);
 builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -53,13 +57,11 @@ builder.Services.AddSwaggerGen(c =>
 		  }
 		});
 });
-builder.Services.AddAuthorization(options =>
-{
-	options.AddPolicy("AdminOnly", policy =>
-		policy.RequireRole("Administrator"));
-	options.AddPolicy("EmployeeOnly", policy =>
+builder.Services.AddAuthorizationBuilder()
+	.AddPolicy("AdminOnly", policy =>
+		policy.RequireRole("Administrator"))
+	.AddPolicy("EmployeeOnly", policy =>
 		policy.RequireRole("Employee"));
-});
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,7 +70,7 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
 	var rsa = RSA.Create();
-	rsa.ImportFromPem(File.ReadAllText("../docker/data/public.key"));
+	rsa.ImportFromPem(File.ReadAllText("../data/public.key"));
 	var publicKey = new RsaSecurityKey(rsa);
 
 	options.TokenValidationParameters = new TokenValidationParameters
@@ -82,27 +84,24 @@ builder.Services.AddAuthentication(options =>
 		IssuerSigningKey = publicKey
 	};
 });
-var app = builder.Build();
-// Seeding
+builder.Services.AddAuthorization();
 
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<IEShopSeeder>();
-await seeder.Seed();
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.Run();

@@ -13,7 +13,7 @@ public class EShopSeeder(DataContext context) : IEShopSeeder
 		{
 			var Products = new List<Product>
 			{
-				new Product {
+				new() {
 						Name = "samsung 1",
 						Ean = "1234567890123",
 						Price = 9.99m,
@@ -21,7 +21,7 @@ public class EShopSeeder(DataContext context) : IEShopSeeder
 						Sku = "SKU001",
 						Category = new Category { Name = "Category 1" }
 					},
-				new Product {
+				new() {
 						Name = "ajfon 1",
 						Ean = "2345678900123",
 						Price = 999.99m,
@@ -29,7 +29,7 @@ public class EShopSeeder(DataContext context) : IEShopSeeder
 						Sku = "SKU021",
 						Category = new Category { Name = "Category 1" }
 					},
-				new Product {
+				new() {
 						Name = "Laptop",
 						Ean = "8900123890123",
 						Price = 12.0m,

@@ -3,13 +3,10 @@ using EShop.Domain.Repositories;
 
 namespace EShop.Application.Service;
 
-public class ProductService : IProductService
+public class ProductService(IRepository repository) : IProductService
 {
-	private IRepository _repository;
-	public ProductService(IRepository repository)
-	{
-		_repository = repository;
-	}
+	private readonly IRepository _repository = repository;
+
 	public async Task<Product> Add(Product product)
 	{
 		var result = await _repository.AddProductAsync(product);
