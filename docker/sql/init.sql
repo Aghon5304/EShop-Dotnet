@@ -1,0 +1,4 @@
+CREATE DATABASE EShop;
+GO
+USE EShop;
+GO

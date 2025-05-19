@@ -1,46 +1,44 @@
 ﻿using EShop.Domain.Models;
 using EShop.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-namespace EShop.Domain.Seeders;
-public class EShopSeeder(DataContext context) : IEShopSeeder
-{
-	public async Task Seed() 
-	{
-		// Sprawdzanie czy baza danych istnieje
-		await context.Database.EnsureCreatedAsync();
-		// Sprawdzenie czy tabela jest pusta
-		if (!context.Products.Any())
-		{
-			var Products = new List<Product>
-			{
-				new() {
-						Name = "samsung 1",
-						Ean = "1234567890123",
-						Price = 9.99m,
-						Stock = 100,
-						Sku = "SKU001",
-						Category = new Category { Name = "Category 1" }
-					},
-				new() {
-						Name = "ajfon 1",
-						Ean = "2345678900123",
-						Price = 999.99m,
-						Stock = 10,
-						Sku = "SKU021",
-						Category = new Category { Name = "Category 1" }
-					},
-				new() {
-						Name = "Laptop",
-						Ean = "8900123890123",
-						Price = 12.0m,
-						Stock = 30,
-						Sku = "SKU99",
-						Category = new Category { Name = "Category 2" }
-					},
-			};
 
-			context.Products.AddRange(Products);
-			context.SaveChanges();
-		}
-	}
+namespace EShop.Domain.Seeders
+{
+    public class EShopSeeder(DataContext context) : IEShopSeeder
+    {
+        public async Task Seed()
+        {
+            if (!context.Categories.Any())
+            {
+                var categories = new List<Category>
+                {
+                    new() { Name = "Przygodowe-Fantasy" },
+                    new() { Name = "Rodzinne" },
+                    new() { Name = "Zręcznościowe" },
+                    new() { Name = "Karciane" },
+                    new() { Name = "Ekonomiczno-handlowe" },
+                    new() { Name = "Strategiczne" },
+                    new() { Name = "Imprezowe" }
+                };
+
+                context.Categories.AddRange(categories);
+                context.SaveChanges();
+            }
+            if (!context.Products.Any())
+            {
+                var category = await context.Categories
+                        .Where(x => x.Name == "Przygodowe-Fantasy").FirstOrDefaultAsync();
+
+                var products = new List<Product>
+                {
+                    new() { Name = "Wiedźmin: Stary Świat", Ean = "14781", Category = category },
+                    new() { Name = "Nemesis: Lockdown", Ean = "15000", Category = category },
+                    new() { Name = "Heroes of Might and Magic III: Gra planszowa", Ean = "17580", Category = category }
+                };
+
+                context.Products.AddRange(products);
+                context.SaveChanges();
+            }
+        }
+    }
 }

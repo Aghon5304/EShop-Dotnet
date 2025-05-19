@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 
 namespace EShop.Domain.Repositories;
-public class DataContext : DbContext
+public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
-	public DataContext(DbContextOptions<DataContext> options) : base(options) {}
-	public DbSet<Product> Products { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Product> Products { get; set; }
 }

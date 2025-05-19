@@ -1,19 +1,13 @@
-﻿using User.Application.Service.Service;
-using User.Application.Service;
+﻿using User.Application.Services;
 using User.Domain.Exceptions;
 using User.Domain.Exceptions.Login;
 namespace User.Application.Services
 {
-	public class LoginService : ILoginService
+	public class LoginService(IJwtTokenService jwtTokenService) : ILoginService
 	{
-		protected IJwtTokenService _jwtTokenService;
+		protected IJwtTokenService _jwtTokenService = jwtTokenService;
 
-		public LoginService(IJwtTokenService jwtTokenService)
-		{
-			_jwtTokenService = jwtTokenService;
-		}
-
-		public string Login(string username, string password)
+        public string Login(string username, string password)
 		{
 			if (username == "admin" && password == "password")
 			{

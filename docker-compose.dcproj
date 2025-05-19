@@ -16,7 +16,6 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
-    <None Include="docker\data\private.key" />
-    <None Include="docker\data\public.key" />
+    <None Include="docker\sql\init.sql" />
   </ItemGroup>
 </Project>

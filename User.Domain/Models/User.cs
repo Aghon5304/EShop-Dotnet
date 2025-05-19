@@ -3,7 +3,7 @@ using System.Data;
 using System.Reflection.Metadata.Ecma335;
 
 namespace User.Domain.Models;
-public class User
+public class Users
 {
 	[Key]
 	public int Id { get; set; }

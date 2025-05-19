@@ -15,6 +15,8 @@ WORKDIR /src
 COPY ["UserService.csproj", "."]
 COPY ["../User.Application/User.Application.csproj", "../User.Application/"]
 COPY ["../User.Domain/User.Domain.csproj", "../User.Domain/"]
+COPY ["docker/data/private.key", "/root/.ssh/private.key"]
+COPY ["docker/data/public.key", "/root/.ssh/public.key"]
 RUN dotnet restore "./UserService.csproj"
 COPY . .
 WORKDIR "/src/."

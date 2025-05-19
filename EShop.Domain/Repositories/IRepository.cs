@@ -13,7 +13,14 @@ public interface IRepository
 	Task<Product> GetProductByIdAsync(int id);
 	Task<List<Product>> GetProductsAsync();
 	Task<Product> AddProductAsync(Product product);
-	Task<Product> UpdateProductAsync(Product product);
+	Task<Product> UpdateProductAsync(int id, Product product);
 	Task DeleteProductAsync(int id);
-	#endregion
+    #endregion
+    #region Category
+    Task<Category> GetCategoryByIdAsync(int id);
+    Task<List<Category>> GetCategoryAsync();
+    Task<Category> AddCategoryAsync(Category category);
+    Task<Category> UpdateCategoryAsync(int id, Category category);
+    Task DeleteCategoryAsync(int id);
+    #endregion
 }

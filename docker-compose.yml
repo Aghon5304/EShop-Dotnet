@@ -1,24 +1,24 @@
 services:
   eshopservice:
-    image: ${DOCKER_REGISTRY}eshopservice
-    build:
-      context: .
-      dockerfile: EShopService\Dockerfile
+    image: ${DOCKER_REGISTRY-}eshopservice
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=${DB_HOST};Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True;
-
-  userService:
-    image: ${DOCKER_REGISTRY}userservice
+      - CONNECTION_STRING=Server=${DB_HOST};Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True;
     build:
       context: .
-      dockerfile: UserService\Dockerfile
+      dockerfile: EShopService/Dockerfile
+
+  userservice:
+    image: ${DOCKER_REGISTRY-}userservice
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=${DB_HOST};Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True;
-
+      - CONNECTION_STRING=Server=${DB_HOST},1433;Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True;
+    build:
+      context: .
+      dockerfile: UserService/Dockerfile
+      
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -27,8 +27,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - mssql_data:/var/opt/
-
+      - mssql_data:/var/opt/mssql
 
   redis:
     image: redis:latest

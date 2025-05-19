@@ -1,4 +1,4 @@
-﻿namespace User.Application.Service.Service;
+﻿namespace User.Application.Services;
 public interface IJwtTokenService
 {
 	string GenerateToken(int userId, List<string> roles);

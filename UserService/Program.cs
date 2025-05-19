@@ -1,23 +1,28 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Cryptography;
-using System.Text;
-using User.Domain.Exceptions;
-using UserService;
+using User.Application.Services;
+using User.Domain.Models.JWT;
+using User.Domain.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IManageUsersService, ManageUsersService>();
 
 builder.Services.AddAuthorizationBuilder()
 	.AddPolicy("AdminOnly", policy =>
@@ -70,7 +75,7 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
 	var rsa = RSA.Create();
-	rsa.ImportFromPem(File.ReadAllText("../data/public.key"));
+	rsa.ImportFromPem(File.ReadAllText("/root/.ssh/public.key"));
 	var publicKey = new RsaSecurityKey(rsa);
 
 	options.TokenValidationParameters = new TokenValidationParameters
