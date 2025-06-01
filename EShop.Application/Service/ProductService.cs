@@ -11,7 +11,7 @@ public class ProductService : IProductService
     public ProductService(IRepository repository)
     {
         _repository = repository;
-        var redis = ConnectionMultiplexer.Connect("localhost:6379");
+        var redis = ConnectionMultiplexer.Connect("redis:6379");
         _redisdb = redis.GetDatabase();
     }
     public async Task<Product> Add(Product product)

@@ -19,8 +19,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+//builder.Services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"), ServiceLifetime.Transient);
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+	options.UseSqlServer(connectionString), ServiceLifetime.Transient);
 
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -68,6 +71,9 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+	var rsa = RSA.Create();
+	rsa.ImportFromPem(File.ReadAllText("root/rsa/public.key"));
+	var publicKey = new RsaSecurityKey(rsa);
 	options.TokenValidationParameters = new TokenValidationParameters
 	{
 		ValidateIssuer = true,

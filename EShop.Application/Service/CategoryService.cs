@@ -5,12 +5,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using StackExchange.Redis;
 namespace EShop.Application.Service;
 
-public class CategoryService(IRepository repository, IConnectionMultiplexer redis) : ICategoryService
+public class CategoryService : ICategoryService
 {
-	private readonly IRepository _repository = repository;
-	private readonly IDatabase _redisdb = redis.GetDatabase();
-
-    public async Task<Category> Add(Category category)
+	private readonly IRepository _repository;
+	private readonly IDatabase _redisdb;
+	public CategoryService(IRepository repository)
+	{
+		_repository = repository;
+		var redis = ConnectionMultiplexer.Connect("redis:6379");
+		_redisdb = redis.GetDatabase();
+	}
+	public async Task<Category> Add(Category category)
 	{
         var result = await _repository.AddCategoryAsync(category);
 		await _redisdb.KeyDeleteAsync("category:all");

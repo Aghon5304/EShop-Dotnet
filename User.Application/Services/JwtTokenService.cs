@@ -15,7 +15,7 @@ public class JwtTokenService(IOptions<JwtSettings> settings) : IJwtTokenService
     public string GenerateToken(int userId, List<string> roles)
 	{
 		var rsa = RSA.Create();
-		rsa.ImportFromPem(File.ReadAllText("/root/.ssh/private.key")); // Załaduj klucz prywatny RSA
+		rsa.ImportFromPem(File.ReadAllText("/root/.ssh/private.key")); 
 
         var creds = new SigningCredentials(new RsaSecurityKey(rsa), SecurityAlgorithms.RsaSha256);
 
