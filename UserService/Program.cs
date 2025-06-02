@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Cryptography;
+using User.Application.Producer;
 using User.Application.Services;
 using User.Domain.Models.JWT;
 using User.Domain.Repositories;
@@ -22,7 +23,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IManageUsersService, ManageUsersService>();
+builder.Services.AddScoped<IManageUserService, ManageUserService>();
+builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 
 builder.Services.AddAuthorizationBuilder()
 	.AddPolicy("AdminOnly", policy =>

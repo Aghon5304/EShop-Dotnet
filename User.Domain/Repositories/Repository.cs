@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using User.Domain.Exceptions.Users;
-using User.Domain.Models;
+using User.Domain.Exceptions.User;
+using User.Domain.Models.Entities;
+using User.Domain.Models.Response;
 using User.Domain.Repositories;
 
 namespace User.Domain.Repositories;
@@ -13,8 +14,8 @@ namespace User.Domain.Repositories;
 public class Repository(DataContext context) : IRepository
 {
     private readonly DataContext _context = context;
-    #region Users
-    public async Task<Users> AddUserAsync(Users users)
+    #region User
+    public async Task<UserCreateDTO> AddUserAsync(UserCreateDTO users)
     {
         await _context.AddAsync(users);
         await _context.SaveChangesAsync();
@@ -26,19 +27,19 @@ public class Repository(DataContext context) : IRepository
         throw new NotImplementedException();
     }
 
-    public async Task<Users> GetUserByIdAsync(int id)
+    public async Task<UserResponseDTO> GetUserByIdAsync(int id)
     {
-        return await _context.Users.FindAsync(id) ?? throw new UsersIdNotFoundException();
+        return await _context.User.FindAsync(id) ?? throw new UserIdNotFoundException();
     }
 
-    public async Task<List<Users>> GetUsersAsync()
+    public async Task<List<UserResponseDTO>> GetUserAsync()
     {
-        return await _context.Users.ToListAsync();
+        return await _context.User.ToListAsync();
     }
 
-    public async Task<Users> UpdateUserAsync(Users users)
+    public async Task<UserUpdateDTO> UpdateUserAsync(UserUpdateDTO users)
     {
-        _context.Users.Update(users);
+        _context.User.Update(users);
         await _context.SaveChangesAsync();
         return users;
     }

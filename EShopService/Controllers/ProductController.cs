@@ -39,7 +39,7 @@ public class ProductController(IProductService productService) : ControllerBase
 		[HttpPost]
     public async Task<ActionResult> Post([FromBody]Product product)
     {
-        var result = await _productService.Add(product);
+        var result = await _productService.AddAsync(product);
         return Ok(result);
 		}
 
@@ -48,7 +48,7 @@ public class ProductController(IProductService productService) : ControllerBase
 		[HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody]Product product)
     {
-        var result = await _productService.Update(id, product);
+        var result = await _productService.UpdateAsync(product);
 			return Ok(result);
 	}
 
@@ -59,7 +59,7 @@ public class ProductController(IProductService productService) : ControllerBase
 	{
 		var product = await _productService.GetAsync(id);
 		product.Deleted = true;
-		var result = await _productService.Update(id, product);
+		var result = await _productService.UpdateAsync(product);
 
 		return Ok(result);
 	}

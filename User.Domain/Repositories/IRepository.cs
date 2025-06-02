@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using User.Domain.Models;
+using User.Domain.Models.Entities;
+using User.Domain.Models.Response;
 
 namespace User.Domain.Repositories;
 public interface IRepository
 {
-    #region Users
-    Task<Users> GetUserByIdAsync(int id);
-    Task<List<Users>> GetUsersAsync();
-    Task<Users> AddUserAsync(Users users);
-    Task<Users> UpdateUserAsync(Users users);
+    #region User
+    Task<UserResponseDTO> GetUserByIdAsync(int id);
+    Task<List<UserResponseDTO>> GetUserAsync();
+    Task<UserCreateDTO> AddUserAsync(UserCreateDTO users);
+    Task<UserUpdateDTO> UpdateUserAsync(UserUpdateDTO users);
     Task DeleteUserAsync(int id);
     #endregion
 }

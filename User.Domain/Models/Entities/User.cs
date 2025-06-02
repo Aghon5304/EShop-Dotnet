@@ -2,8 +2,8 @@
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
 
-namespace User.Domain.Models;
-public class Users
+namespace User.Domain.Models.Entities;
+public class User
 {
 	[Key]
 	public int Id { get; set; }

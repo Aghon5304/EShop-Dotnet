@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using User.Application.Producer;
 using User.Application.Services;
 using User.Domain.Models.Request;
 namespace UserService.Controllers;
@@ -11,6 +12,7 @@ namespace UserService.Controllers;
 public class LoginController(ILoginService loginService) : ControllerBase
 {
     protected ILoginService _loginService = loginService;
+    protected readonly IKafkaProducer _kafkaProducer;
 
     [HttpPost]
     public IActionResult Login([FromBody] LogInRequest request)
@@ -18,6 +20,7 @@ public class LoginController(ILoginService loginService) : ControllerBase
         try
         {
             var token = _loginService.Login(request.Username, request.Password);
+            _kafkaProducer.SendMessageAsync("login-events", $"User {request.Username} logged in at {DateTime.UtcNow}");
             return Ok(new { token });
         }
         catch(InvalidCredentialException)

@@ -1,7 +1,9 @@
 ﻿using System.Text.Json;
 using EShop.Domain.Models;
 using EShop.Domain.Repositories;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
 namespace EShop.Application.Service;
 
@@ -9,51 +11,47 @@ public class CategoryService : ICategoryService
 {
 	private readonly IRepository _repository;
 	private readonly IDatabase _redisdb;
-	public CategoryService(IRepository repository)
-	{
-		_repository = repository;
-		var redis = ConnectionMultiplexer.Connect("redis:6379");
+    private readonly IMemoryCache _cache;
+    public CategoryService(IRepository repository, IMemoryCache cache)
+    { 
+        _repository = repository;
+        _cache = cache;
+        var redis = ConnectionMultiplexer.Connect("redis:6379");
 		_redisdb = redis.GetDatabase();
 	}
-	public async Task<Category> Add(Category category)
+	public async Task<Category> AddAsync(Category category)
 	{
         var result = await _repository.AddCategoryAsync(category);
-		await _redisdb.KeyDeleteAsync("category:all");
+
         return result;
 	}
     public async Task<List<Category>> GetAllAsync()
+    {
+        var result = await _repository.GetCategoryAsync();
+
+        return result;
+    }
+
+    public async Task<Category> GetAsync(int id)
 	{
-        var cached = await _redisdb.StringGetAsync("category:all");
-        if (cached.HasValue)
+        string key = $"category:{id}";
+        var cached = await _redisdb.StringGetAsync(key);
+        if (string.IsNullOrEmpty(cached))
         {
-            return JsonSerializer.Deserialize<List<Category>>(cached)!;
+            var categories = await _repository.GetCategoryByIdAsync(id);
+            await _redisdb.StringSetAsync(key, JsonSerializer.Serialize(categories), TimeSpan.FromDays(1));
+            return categories;
         }
-		else
-		{
-            var categories = await _repository.GetCategoryAsync();
-            await _redisdb.StringSetAsync("category:all", JsonSerializer.Serialize(categories));
+        else
+        {
+            var categories = JsonSerializer.Deserialize<Category?>(cached);
             return categories;
         }
     }
 
-	public async Task<Category> GetAsync(int id)
+	public async Task<Category> Update(Category category)
 	{
-		var cached = await _redisdb.StringGetAsync($"category:{id}");
-        if (cached.HasValue)
-        {
-            return JsonSerializer.Deserialize<Category>(cached)!;
-        }
-		else
-		{
-            var categories = await _repository.GetCategoryByIdAsync(id);
-            await _redisdb.StringSetAsync($"category:{id}", JsonSerializer.Serialize(categories));
-            return categories;
-        }
-	}
-
-	public async Task<Category> Update(int id, Category category)
-	{
-		var result = await _repository.UpdateCategoryAsync(id, category);
+		var result = await _repository.UpdateCategoryAsync(category);
         await _redisdb.KeyDeleteAsync("category:all");
         return result;
 	}

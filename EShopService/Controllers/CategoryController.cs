@@ -39,7 +39,7 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] Category category)
     {
-        var result = await _categoryService.Add(category);
+        var result = await _categoryService.AddAsync(category);
         return Ok(result);
     }
 
@@ -48,7 +48,7 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody] Category category)
     {
-        var result = await _categoryService.Update(id, category);
+        var result = await _categoryService.Update(category);
         return Ok(result);
     }
 

@@ -28,12 +28,11 @@ public class Repository(DataContext context) : IRepository
     {
         return await _context.Categories.FindAsync(id);
     }
-    public async Task<Category> UpdateCategoryAsync(int id, Category category)
+    public async Task<Category> UpdateCategoryAsync(Category category)
     {
-        var existingCategory = await _context.Categories.FindAsync(id) ?? throw new Exception("Category not found");
-        existingCategory = category;
+        _context.Categories.Update(category);
         await _context.SaveChangesAsync();
-        return existingCategory;
+        return category;
     }
     #endregion
 
@@ -58,12 +57,12 @@ public class Repository(DataContext context) : IRepository
     {
         return await _context.Products.ToListAsync();
     }
-    public async Task<Product> UpdateProductAsync(int id, Product product)
+
+    public async Task<Product> UpdateProductAsync(Product product)
     {
-        var existingProduct = await _context.Products.FindAsync(id) ?? throw new Exception("Product not found");
-        existingProduct = product;
+        _context.Products.Update(product);
         await _context.SaveChangesAsync();
-        return existingProduct;
+        return product;
     }
     #endregion
 }

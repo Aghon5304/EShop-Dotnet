@@ -1,27 +1,28 @@
-﻿using User.Domain.Models;
+﻿using User.Domain.Models.Entities;
+using User.Domain.Models.Response;
 using User.Domain.Repositories;
 
 namespace User.Application.Services;
 
-public class ManageUsersService(IRepository repository) : IManageUsersService
+public class UserService(IRepository repository) : IUserService
 {
     private readonly IRepository _repository = repository;
-    public async Task<Users> Add(Users users)
+    public async Task<UserCreateDTO> Add(UserCreateDTO users)
     {
         return await _repository.AddUserAsync(users);
     }
 
-    public async Task<List<Users>> GetAllAsync()
+    public async Task<List<UserResponseDTO>> GetAllAsync()
     {
-        return await _repository.GetUsersAsync();
+        return await _repository.GetUserAsync();
     }
 
-    public async Task<Users> GetAsync(int id)
+    public async Task<UserResponseDTO> GetAsync(int id)
     {
         return await _repository.GetUserByIdAsync(id);
     }
 
-    public async Task<Users> Update(Users users)
+    public async Task<UserUpdateDTO> Update(UserUpdateDTO users)
     {
         return await _repository.UpdateUserAsync(users);
     }

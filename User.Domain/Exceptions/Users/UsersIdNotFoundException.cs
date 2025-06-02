@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace User.Domain.Exceptions.Users;
+namespace User.Domain.Exceptions.User;
 
-public class UsersIdNotFoundException: Exception
+public class UserIdNotFoundException: Exception
 {
-    public UsersIdNotFoundException() : base("User with given id does not exist")
+    public UserIdNotFoundException() : base("User with given id does not exist")
     {}
-    public UsersIdNotFoundException(Exception innerException) : base("User with given id does not exist", innerException)
+    public UserIdNotFoundException(Exception innerException) : base("User with given id does not exist", innerException)
     {}
 }
