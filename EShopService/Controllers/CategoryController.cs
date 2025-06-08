@@ -59,7 +59,7 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     {
         var category = await _categoryService.GetAsync(id);
         category.Deleted = true;
-        var result = await _categoryService.Update(id, category);
+        var result = await _categoryService.Update(category);
 
         return Ok(result);
     }

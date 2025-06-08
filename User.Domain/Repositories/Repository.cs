@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using User.Domain.Exceptions.Login;
 using User.Domain.Exceptions.User;
 using User.Domain.Models.Entities;
 using User.Domain.Models.Response;
@@ -22,24 +23,80 @@ public class Repository(DataContext context) : IRepository
         return users;
     }
 
-    public Task DeleteUserAsync(int id)
+    public async Task DeleteUserAsync(int id)
     {
-        throw new NotImplementedException();
+        var user = await _context.User
+            .Where(x => x.Id == id)
+            .FirstOrDefaultAsync();
+
+        if (user == null)
+            throw new UserIdNotFoundException();
+
+        user.IsActive = false;
+        await _context.SaveChangesAsync();
     }
 
     public async Task<UserResponseDTO> GetUserByIdAsync(int id)
     {
-        return await _context.User.FindAsync(id) ?? throw new UserIdNotFoundException();
+        return await _context.User
+            .Where(x => x.Id == id)
+            .Select(x => new UserResponseDTO
+            {
+                Id = x.Id,
+                Username = x.Username,
+                Email = x.Email,
+                CreatedAt = x.CreatedAt,
+                LastLoginAt = x.LastLoginAt
+            })
+            .FirstOrDefaultAsync() ?? throw new UserIdNotFoundException(); 
     }
 
     public async Task<List<UserResponseDTO>> GetUserAsync()
     {
-        return await _context.User.ToListAsync();
+          return await _context.User
+            .Select(x => new UserResponseDTO
+            {
+                Id = x.Id,
+                Username = x.Username,
+                Email = x.Email,
+                CreatedAt = x.CreatedAt,
+                LastLoginAt = x.LastLoginAt
+            }).ToListAsync();
     }
-
+    public async Task<UserLoginDTO> GetUserLoginAsync(string email)
+    {
+        return await _context.User
+            .Where(x => x.Email == email)
+            .Select(x => new UserLoginDTO
+            {
+                Id = x.Id,
+                Email = x.Email,
+                PasswordHash = x.PasswordHash
+            })
+            .FirstOrDefaultAsync() ?? throw new NoUserWithEmail();
+    }
     public async Task<UserUpdateDTO> UpdateUserAsync(UserUpdateDTO users)
     {
-        _context.User.Update(users);
+        var userEntity = await _context.User
+            .FirstOrDefaultAsync(u => u.Id == users.Id);
+
+        if (userEntity == null)
+            throw new UserIdNotFoundException();
+
+        userEntity.Username = users.Username ?? userEntity.Username;
+        userEntity.Email = users.Email ?? userEntity.Email;
+        userEntity.PasswordHash = users.PasswordHash ?? userEntity.PasswordHash;
+
+        if (users.Roles != null)
+        {
+            userEntity.Roles = null;
+            foreach (var role in users.Roles)
+            {
+                var attachedRole = await _context.Role.FindAsync(role.Id) ?? role;
+                userEntity.Roles.Add(attachedRole);
+            }
+        }
+
         await _context.SaveChangesAsync();
         return users;
     }

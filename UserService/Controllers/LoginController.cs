@@ -19,8 +19,8 @@ public class LoginController(ILoginService loginService) : ControllerBase
     {
         try
         {
-            var token = _loginService.Login(request.Username, request.Password);
-            _kafkaProducer.SendMessageAsync("login-events", $"User {request.Username} logged in at {DateTime.UtcNow}");
+            var token = _loginService.Login(request.Email, request.Password);
+            _kafkaProducer.SendMessageAsync("login-events", $"User {request.Email} logged in at {DateTime.UtcNow}");
             return Ok(new { token });
         }
         catch(InvalidCredentialException)

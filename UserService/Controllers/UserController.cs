@@ -2,20 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using User.Application.Services;
 using User.Domain.Models.Entities;
+using User.Domain.Models.Response;
 
 namespace UserService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController(IManageUserService manageUserService) : ControllerBase
+public class UserController: ControllerBase
 {
-    private readonly IManageUserService _manageUserService = manageUserService;
+    private IUserService _userService;
+    public UserController(IUserService userService)
+    {
+        _userService = userService;
+    }
 
     // GET: api/<UserController>
     [HttpGet]
     public async Task<ActionResult> Get()
     {
-        var result = await _manageUserService.GetAllAsync();
+        var result = await _userService.GetAllAsync();
         return Ok(result);
     }
 
@@ -23,7 +28,7 @@ public class UserController(IManageUserService manageUserService) : ControllerBa
     [HttpGet("{id}")]
     public async Task<ActionResult> Get(int id)
     {
-        var result = await _manageUserService.GetAsync(id);
+        var result = await _userService.GetAsync(id);
         if (result == null)
         {
             return NotFound();
@@ -37,18 +42,18 @@ public class UserController(IManageUserService manageUserService) : ControllerBa
     // POST api/<UserController>
     [Authorize(Policy = "EmployeeOnly")]
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] User users)
+    public async Task<ActionResult> Post([FromBody] UserCreateDTO users)
     {
-        var result = await _manageUserService.Add(users);
+        var result = await _userService.Add(users);
         return Ok(result);
     }
 
     // PUT api/<UserController>/id
     [Authorize(Policy = "EmployeeOnly")]
     [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, [FromBody] User users)
+    public async Task<ActionResult> Put(int id, [FromBody] UserUpdateDTO users)
     {
-        var result = await _manageUserService.Update(users);
+        var result = await _userService.Update(users);
         return Ok(result);
     }
 
@@ -57,10 +62,8 @@ public class UserController(IManageUserService manageUserService) : ControllerBa
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        var users = await _manageUserService.GetAsync(id);
-        users.IsActive = false;
-        var result = await _manageUserService.Update(users);
+        await _userService.Delete(id);
 
-        return Ok(result);
+        return Ok();
     }
 }

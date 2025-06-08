@@ -16,14 +16,14 @@ namespace User.Application.Services
             _userLoggedIdsQueue = new Queue<int>();
             _kafkaProducer = kafkaProducer;
         }
-        public string Login(string username, string password)
+        public string Login(string email, string password)
         {
-            if (username == "admin" && password == "password")
+            if (email == "admin@admin" && password == "password")
             {
                 var roles = new List<string> { "Client", "Employee", "Administrator" };
                 var token = _jwtTokenService.GenerateToken(123, roles);
                 _userLoggedIdsQueue.Enqueue(123);
-                _kafkaProducer.SendMessageAsync("after-login-email-topic", "balsamb@uek.krakow.pl");
+                _kafkaProducer.SendMessageAsync("after-login-email-topic", "email");
                 return token;
             }
             else

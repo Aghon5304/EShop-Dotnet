@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using User.Domain.Models.Response;
 
 namespace User.Domain.Profiles;
 
-public class mappingProfile : Profile
+public class MappingProfile : Profile
 {
     public MappingProfile()
     {

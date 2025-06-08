@@ -14,6 +14,7 @@ public interface IRepository
     Task<List<UserResponseDTO>> GetUserAsync();
     Task<UserCreateDTO> AddUserAsync(UserCreateDTO users);
     Task<UserUpdateDTO> UpdateUserAsync(UserUpdateDTO users);
+    Task<UserLoginDTO> GetUserLoginAsync(string username);
     Task DeleteUserAsync(int id);
     #endregion
 }

@@ -23,7 +23,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IManageUserService, ManageUserService>();
+builder.Services.AddScoped<IUserService, User.Application.Services.UserService>();
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 
 builder.Services.AddAuthorizationBuilder()
