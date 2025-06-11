@@ -1,4 +1,4 @@
-﻿namespace EShop.Domain.@enum;
+﻿namespace EShop.Domain.Enums;
 
 public enum CreditCardProvider
 {

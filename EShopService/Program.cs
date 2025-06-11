@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +18,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
 
-builder.Services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"), ServiceLifetime.Transient);
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+
+//builder.Services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"), ServiceLifetime.Transient);
+builder.Services.AddDbContext<DataContext>(options =>
+	options.UseSqlServer(connectionString), ServiceLifetime.Transient);
+
 builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
@@ -53,13 +60,11 @@ builder.Services.AddSwaggerGen(c =>
 		  }
 		});
 });
-builder.Services.AddAuthorization(options =>
-{
-	options.AddPolicy("AdminOnly", policy =>
-		policy.RequireRole("Administrator"));
-	options.AddPolicy("EmployeeOnly", policy =>
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("AdminOnly", policy =>
+		policy.RequireRole("Administrator"))
+    .AddPolicy("EmployeeOnly", policy =>
 		policy.RequireRole("Employee"));
-});
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -68,9 +73,8 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
 	var rsa = RSA.Create();
-	rsa.ImportFromPem(File.ReadAllText("../docker/data/public.key"));
+	rsa.ImportFromPem(File.ReadAllText("root/rsa/public.key"));
 	var publicKey = new RsaSecurityKey(rsa);
-
 	options.TokenValidationParameters = new TokenValidationParameters
 	{
 		ValidateIssuer = true,
@@ -79,15 +83,18 @@ builder.Services.AddAuthentication(options =>
 		ValidateIssuerSigningKey = true,
 		ValidIssuer = "EShopNetCourse",
 		ValidAudience = "Eshop",
-		IssuerSigningKey = publicKey
 	};
 });
 var app = builder.Build();
 // Seeding
 
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<IEShopSeeder>();
-await seeder.Seed();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+    await db.Database.MigrateAsync();
+    var seeder = scope.ServiceProvider.GetRequiredService<IEShopSeeder>();
+    await seeder.Seed();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

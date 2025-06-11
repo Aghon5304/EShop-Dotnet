@@ -3,7 +3,7 @@ using EShop.Domain.Exceptions.CreditCard;
 
 namespace EShop.Application.Service;
 
-public class CreditcardService : ICreditCardService
+public partial class CreditcardService : ICreditCardService
 {
 	public bool ValidateCard(string cardNumber)
 	{
@@ -43,14 +43,23 @@ public class CreditcardService : ICreditCardService
 	{
 		cardNumber = cardNumber.Replace(" ", "").Replace("-", "");
 
-		if (Regex.IsMatch(cardNumber, @"^4(\d{12}|\d{15}|\d{18})$"))
+		if (VisaCardRegex().IsMatch(cardNumber))
 			return "Visa";
-		else if (Regex.IsMatch(cardNumber, @"^(5[1-5]\d{14}|2(2[2-9][1-9]|2[3-9]\d{2}|[3-6]\d{3}|7([01]\d{2}|20\d))\d{10})$"))
+		else if (MasterCardRegex().IsMatch(cardNumber))
 			return "MasterCard";
-		else if (Regex.IsMatch(cardNumber, @"^3[47]\d{13}$"))
+		else if (AmericanExpressRegex().IsMatch(cardNumber))
 			return "American Express";
-		else if (Regex.IsMatch(cardNumber, @"^(50|5[6-9]|6\d)\d{10,17}$"))
+		else if (MaestroRegex().IsMatch(cardNumber))
 			return "Maestro";
 		else throw new CardNumberInvalidException();
 	}
+
+    [GeneratedRegex(@"^4(\d{12}|\d{15}|\d{18})$")]
+    private static partial Regex VisaCardRegex();
+    [GeneratedRegex(@"^3[47]\d{13}$")]
+    private static partial Regex AmericanExpressRegex();
+    [GeneratedRegex(@"^(5[1-5]\d{14}|2(2[2-9][1-9]|2[3-9]\d{2}|[3-6]\d{3}|7([01]\d{2}|20\d))\d{10})$")]
+    private static partial Regex MasterCardRegex();
+    [GeneratedRegex(@"^(50|5[6-9]|6\d)\d{10,17}$")]
+    private static partial Regex MaestroRegex();
 }

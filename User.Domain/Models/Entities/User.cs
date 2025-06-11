@@ -2,7 +2,7 @@
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
 
-namespace User.Domain.Models;
+namespace User.Domain.Models.Entities;
 public class User
 {
 	[Key]

@@ -72,7 +72,7 @@ public class ProductControllerTests
 			new() { Id = 2, Name = "Product 2", Price = 20.0m, Stock = 1 }
 		};
 
-		_productServiceMock.Setup(s => s.Add(It.IsAny<Product>())).ReturnsAsync(products[0]);
+		_productServiceMock.Setup(s => s.AddAsync(It.IsAny<Product>())).ReturnsAsync(products[0]);
 		var result = await _productController.Post(products[0]);
 		Assert.Equal(products[0], Assert.IsType<OkObjectResult>(result).Value);
 	}
@@ -84,7 +84,7 @@ public class ProductControllerTests
 			new() { Id = 1, Name = "Product 1", Price = 10.0m, Stock = 12 },
 			new() { Id = 2, Name = "Product 2", Price = 20.0m, Stock = 1 }
 		};
-		_productServiceMock.Setup(s => s.Update(It.IsAny<Product>())).ReturnsAsync(products[0]);
+		_productServiceMock.Setup(s => s.UpdateAsync(It.IsAny<Product>())).ReturnsAsync(products[0]);
 		var result = await _productController.Put(1, products[0]);
 		Assert.Equal(products[0], Assert.IsType<OkObjectResult>(result).Value);
 	}
@@ -97,7 +97,7 @@ public class ProductControllerTests
 			new() { Id = 2, Name = "Product 2", Price = 20.0m, Stock = 1 }
 		};
 		_productServiceMock.Setup(s => s.GetAsync(1)).ReturnsAsync(products[0]);
-		_productServiceMock.Setup(s => s.Update(It.IsAny<Product>())).ReturnsAsync(products[0]);
+		_productServiceMock.Setup(s => s.UpdateAsync(It.IsAny<Product>())).ReturnsAsync(products[0]);
 		var result = await _productController.Delete(1);
 		Assert.Equal(products[0], Assert.IsType<OkObjectResult>(result).Value);
 	}

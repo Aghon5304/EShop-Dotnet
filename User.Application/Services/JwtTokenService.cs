@@ -5,25 +5,23 @@ using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
 using User.Domain.Exceptions;
+using User.Domain.Models.JWT;
 
-namespace User.Application.Service.Service;
-public class JwtTokenService : IJwtTokenService
+namespace User.Application.Services;
+public class JwtTokenService(IOptions<JwtSettings> settings) : IJwtTokenService
 {
-	private readonly JwtSettings _settings;
+	private readonly JwtSettings _settings = settings.Value;
 
-	public JwtTokenService(IOptions<JwtSettings> settings)
-	{
-		_settings = settings.Value;
-	}
-	public string GenerateToken(int userId, List<string> roles)
+    public string GenerateToken(int userId, List<string> roles)
 	{
 		var rsa = RSA.Create();
-		rsa.ImportFromPem(File.ReadAllText("..docker/data/private.key")); // Załaduj klucz prywatny RSA
-		var creds = new SigningCredentials(new RsaSecurityKey(rsa), SecurityAlgorithms.RsaSha256);
+		rsa.ImportFromPem(File.ReadAllText("/root/.ssh/private.key")); 
+
+        var creds = new SigningCredentials(new RsaSecurityKey(rsa), SecurityAlgorithms.RsaSha256);
 
 		var claims = new List<Claim>
 		{
-			new Claim(ClaimTypes.NameIdentifier, userId.ToString())
+			new(ClaimTypes.NameIdentifier, userId.ToString())
 		};
 
 		claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
