@@ -42,5 +42,6 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
-
+public.key
+private.key
 .env

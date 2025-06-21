@@ -32,7 +32,7 @@ public class LoginNotificationEmail
         try
         {
             string smtpHost = Environment.GetEnvironmentVariable("smtpHost");
-            int smtpPort = Int32.Parse(Environment.GetEnvironmentVariable("smtpPort"));
+            int smtpPort = 587;
             using (var client = new SmtpClient(smtpHost, smtpPort))
             {
                 client.EnableSsl = true;

@@ -14,8 +14,8 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["EShopService/EShopService.csproj", "EShopService/"]
 RUN dotnet restore "./EShopService/EShopService.csproj"
-COPY ["docker/data/public.key", "/root/.ssh/public.key"]
 COPY . .
+COPY ./docker/data/public.key /app/data/public.key
 WORKDIR "/src/EShopService"
 RUN dotnet build "./EShopService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

@@ -18,6 +18,7 @@ public class UserController: ControllerBase
 
     // GET: api/<UserController>
     [HttpGet]
+    [Authorize(Policy = "EmployeeOnly")]
     public async Task<ActionResult> Get()
     {
         var result = await _userService.GetAllAsync();
@@ -25,6 +26,7 @@ public class UserController: ControllerBase
     }
 
     // GET api/<UserController>/id
+    [Authorize(Policy = "EmployeeOnly")]
     [HttpGet("{id}")]
     public async Task<ActionResult> Get(int id)
     {
@@ -58,7 +60,7 @@ public class UserController: ControllerBase
     }
 
     // DELETE api/<UserController>/
-    [Authorize(Policy = "EmployeeOnly")]
+    [Authorize(Policy = "AdminOnly")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

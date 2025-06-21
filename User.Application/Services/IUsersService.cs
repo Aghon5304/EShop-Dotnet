@@ -13,6 +13,7 @@ namespace User.Application.Services
     {
         public Task<List<UserResponseDTO>> GetAllAsync();
         Task<UserResponseDTO> GetAsync(int id);
+        Task<UserLoginDTO> GetLoginAsync(string email);
         Task<UserUpdateDTO> Update(UserUpdateDTO users);
         Task<UserCreateDTO> Add(UserCreateDTO users);
         Task Delete(int id);

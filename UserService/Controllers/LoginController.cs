@@ -9,10 +9,10 @@ namespace UserService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LoginController(ILoginService loginService) : ControllerBase
+public class LoginController(ILoginService loginService, IKafkaProducer kafkaProducer) : ControllerBase
 {
     protected ILoginService _loginService = loginService;
-    protected readonly IKafkaProducer _kafkaProducer;
+    protected readonly IKafkaProducer _kafkaProducer = kafkaProducer;
 
     [HttpPost]
     public IActionResult Login([FromBody] LogInRequest request)

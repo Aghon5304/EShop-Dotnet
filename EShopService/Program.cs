@@ -1,18 +1,20 @@
 using EShop.Application.Service;
-using EShop.Domain;
 using EShop.Domain.Repositories;
 using EShop.Domain.Seeders;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using StackExchange.Redis;
 using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<ICreditCardService, CreditcardService>();
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,9 +28,6 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 builder.Services.AddDbContext<DataContext>(options =>
 	options.UseSqlServer(connectionString), ServiceLifetime.Transient);
 
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
 builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -72,18 +71,20 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-	var rsa = RSA.Create();
-	rsa.ImportFromPem(File.ReadAllText("root/rsa/public.key"));
-	var publicKey = new RsaSecurityKey(rsa);
-	options.TokenValidationParameters = new TokenValidationParameters
-	{
-		ValidateIssuer = true,
-		ValidateAudience = true,
-		ValidateLifetime = true,
-		ValidateIssuerSigningKey = true,
-		ValidIssuer = "EShopNetCourse",
-		ValidAudience = "Eshop",
-	};
+    var rsa = RSA.Create();
+    rsa.ImportFromPem(File.ReadAllText("/app/data/public.key"));
+    var publicKey = new RsaSecurityKey(rsa);
+
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "EShopNetCourse",
+        ValidAudience = "Eshop",
+        IssuerSigningKey = publicKey
+    };
 });
 var app = builder.Build();
 // Seeding

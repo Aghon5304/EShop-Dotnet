@@ -31,4 +31,9 @@ public class UserService(IRepository repository) : IUserService
     {
         await _repository.DeleteUserAsync(id);
     }
+
+    public async Task<UserLoginDTO> GetLoginAsync(string email)
+    {
+        return await _repository.GetUserLoginAsync(email);
+    }
 }

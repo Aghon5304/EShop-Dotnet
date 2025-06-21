@@ -7,23 +7,28 @@ using User.Application.Producer;
 using User.Application.Services;
 using User.Domain.Models.JWT;
 using User.Domain.Repositories;
+using User.Domain.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IUserService, User.Application.Services.UserService>();
+builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IUserSeeder, UserSeeder>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
-builder.Services.AddScoped<ILoginService, LoginService>();
-builder.Services.AddScoped<IUserService, User.Application.Services.UserService>();
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(connectionString), ServiceLifetime.Transient);
+
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 
 builder.Services.AddAuthorizationBuilder()
@@ -77,7 +82,7 @@ builder.Services.AddAuthentication(options =>
 .AddJwtBearer(options =>
 {
 	var rsa = RSA.Create();
-	rsa.ImportFromPem(File.ReadAllText("/root/.ssh/public.key"));
+	rsa.ImportFromPem(File.ReadAllText("/app/data/public.key"));
 	var publicKey = new RsaSecurityKey(rsa);
 
 	options.TokenValidationParameters = new TokenValidationParameters
@@ -94,6 +99,14 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+    await db.Database.MigrateAsync();
+    var seeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
+    await seeder.Seed();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

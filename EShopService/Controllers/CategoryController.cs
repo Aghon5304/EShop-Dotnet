@@ -37,9 +37,9 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     // POST api/<CategoryController>
     [Authorize(Policy = "EmployeeOnly")]
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] Category category)
+    public async Task<ActionResult> Post([FromBody] String Name)
     {
-        var result = await _categoryService.AddAsync(category);
+        var result = await _categoryService.AddAsync(Name);
         return Ok(result);
     }
 

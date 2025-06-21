@@ -9,6 +9,8 @@ services:
     build:
       context: .
       dockerfile: EShopService/Dockerfile
+    volumes:
+      - ./docker/data/:/app/data/:ro
 
   userservice:
     image: ${DOCKER_REGISTRY-}userservice
@@ -19,10 +21,25 @@ services:
     build:
       context: .
       dockerfile: UserService/Dockerfile
+    volumes:
+      - ./docker/data/:/app/data/:ro
+
+  shoppingcart:
+    image: ${DOCKER_REGISTRY-}shopingcart
+    depends_on:
+      - db
+      - kafka
+      - eshopservice
+    environment:
+      - CONNECTION_STRING=Server=${DB_HOST};Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True;
+    build:
+      context: .
+      dockerfile: ShoppingCart/Dockerfile
 
   notificationservice:
     image: ${DOCKER_REGISTRY-}notificationservice
     depends_on:
+      - db
       - kafka
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
