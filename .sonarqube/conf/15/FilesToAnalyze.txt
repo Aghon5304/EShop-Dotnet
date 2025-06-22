@@ -1,0 +1,8 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Producer\IKafkaProducer.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Producer\kafkaProducer.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Services\IJwtTokenService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Services\ILoginService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Services\IUsersService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Services\JwtTokenService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Services\LoginService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\User.Application\Services\UsersService.cs

@@ -1,0 +1,5 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Application\CommandHandlers\AddProductToCartCommandHandler.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Application\CommandHandlers\RemoveProductFromCartCommandHandler.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Application\QueryHandlers\GetAllCartsQueryHandler.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Application\QueryHandlers\GetCartQueryHandler.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Application\Services\CartService.cs

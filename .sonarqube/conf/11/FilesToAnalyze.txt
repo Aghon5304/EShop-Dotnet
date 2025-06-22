@@ -1,0 +1,2 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\WorkerExtensions\obj\Release\net8.0\WorkerExtensions.AssemblyInfo.cs
+C:\Users\Oliwier\.nuget\packages\microsoft.azure.webjobs.extensions.kafka\4.1.0\build\cacert.pem

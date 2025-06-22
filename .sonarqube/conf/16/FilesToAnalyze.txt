@@ -1,0 +1,12 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\Controllers\CartController.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\Program.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\obj\Debug\net8.0\ShoppingCart.GlobalUsings.g.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\obj\Debug\net8.0\ShoppingCart.AssemblyInfo.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\obj\Debug\net8.0\ShoppingCart.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\appsettings.Development.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\appsettings.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\Dockerfile
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\ShoppingCart.http
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart\Properties\launchSettings.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\.dockerignore

@@ -1,0 +1,10 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Command\AddProductToCartCommand.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Command\RemoveProductFromCartCommand.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Exceptions\NoProductWithIdFoundException.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Interfaces\ICartAdder.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Interfaces\ICartReader.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Interfaces\ICartRemover.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Models\Cart.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Models\Product.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Queries\GetAllCartsQuery.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\ShoppingCart.Domain\Queries\GetCartQuery.cs

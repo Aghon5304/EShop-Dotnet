@@ -1,0 +1,17 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\Function1.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\KafkaMessage.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\LoginNotificationEmail.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\Program.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\NotificationService.GlobalUsings.g.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\NotificationService.AssemblyInfo.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\host.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\.gitignore
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\Dockerfile
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\Properties\launchSettings.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\Properties\serviceDependencies.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\Properties\serviceDependencies.local.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\.dockerignore
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\functions.metadata
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\worker.config.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\NotificationService\obj\Debug\net8.0\extensions.json

@@ -1,0 +1,15 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Enums\KartyKredytowe.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Exceptions\CreditCard\CardNumberInvalidException.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Exceptions\CreditCard\CardNumberTooLongException.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Exceptions\CreditCard\CardNumberTooShortException.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Migrations\20250608144024_createMigrations.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Migrations\20250608144024_createMigrations.Designer.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Migrations\DataContextModelSnapshot.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Models\BaseModel.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Models\Category.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Models\Product.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Repositories\DataContext.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Repositories\IRepository.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Repositories\Repository.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Seeders\EShopSeeder.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Domain\Seeders\IEShopSeeder.cs

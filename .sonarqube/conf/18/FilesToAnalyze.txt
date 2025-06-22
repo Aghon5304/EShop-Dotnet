@@ -1,0 +1,14 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\Controllers\LoginController.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\Controllers\UserController.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\Program.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\obj\Debug\net8.0\UserService.GlobalUsings.g.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\obj\Debug\net8.0\UserService.AssemblyInfo.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\obj\Debug\net8.0\UserService.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\appsettings.Development.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\appsettings.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\.dockerignore
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\Dockerfile
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\UserService.http
+C:\Users\Oliwier\source\repos\EShop-Dotnet\UserService\Properties\launchSettings.json
+C:\Users\Oliwier\source\repos\EShop-Dotnet\.dockerignore

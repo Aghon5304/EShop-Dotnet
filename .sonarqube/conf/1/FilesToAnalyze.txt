@@ -1,0 +1,5 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\.env
+C:\Users\Oliwier\source\repos\EShop-Dotnet\docker-compose.override.yml
+C:\Users\Oliwier\source\repos\EShop-Dotnet\docker-compose.yml
+C:\Users\Oliwier\source\repos\EShop-Dotnet\.dockerignore
+C:\Users\Oliwier\source\repos\EShop-Dotnet\docker\sql\init.sql

@@ -1,0 +1,6 @@
+﻿C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Application\Service\CategoryService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Application\Service\CreditcardService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Application\Service\ICategoryService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Application\Service\ICreditCardService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Application\Service\IProductService.cs
+C:\Users\Oliwier\source\repos\EShop-Dotnet\EShop.Application\Service\ProductService.cs
