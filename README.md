@@ -1,4 +1,4 @@
-Requires .env file that contains:
+Project requires docker and .env file that contains:
 ```
 DB_HOST
 DB_NAME
