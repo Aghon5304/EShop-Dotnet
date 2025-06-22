@@ -22,7 +22,7 @@ public class CategoryServiceTests
         _redisMock = new Mock<IDatabase>();
         
         // Note: In a real test environment, you would mock ConnectionMultiplexer properly
-        _categoryService = new CategoryService(_repositoryMock.Object, _cacheMock.Object);
+        _categoryService = new CategoryService(_repositoryMock.Object, _cacheMock.Object, _redisMock.Object);
     }
 
     [Fact]

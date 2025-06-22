@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using EShop.Application.Service;
 using EShop.Domain.Repositories;
 using EShop.Domain.Seeders;
@@ -5,7 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Security.Cryptography;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IEShopSeeder, EShopSeeder>();
 
+var redis = ConnectionMultiplexer.Connect("redis:6379");
+builder.Services.AddSingleton<IConnectionMultiplexer>(redis);
+builder.Services.AddScoped<IDatabase>(sp => sp.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -63,7 +67,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("AdminOnly", policy =>
 		policy.RequireRole("Administrator"))
     .AddPolicy("EmployeeOnly", policy =>
-		policy.RequireRole("Employee"));
+		policy.RequireRole("Employee", "Administrator"));
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

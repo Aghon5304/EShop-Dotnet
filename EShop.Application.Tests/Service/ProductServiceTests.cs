@@ -28,7 +28,7 @@ public class ProductServiceTests
         
         // Note: In a real test, you might need to mock ConnectionMultiplexer.Connect
         // For now, creating service with mocked dependencies
-        _productService = new ProductService(_repositoryMock.Object, _cacheMock.Object);
+        _productService = new ProductService(_repositoryMock.Object, _cacheMock.Object, _redisMock.Object);
     }
 
     [Fact]
