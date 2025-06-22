@@ -19,8 +19,12 @@ public class CategoryService : ICategoryService
         var redis = ConnectionMultiplexer.Connect("redis:6379");
 		_redisdb = redis.GetDatabase();
 	}
-	public async Task<Category> AddAsync(Category category)
+	public async Task<Category> AddAsync(string Name)
 	{
+        var category = new Category
+        {
+            Name = Name
+        };
         var result = await _repository.AddCategoryAsync(category);
 
         return result;
