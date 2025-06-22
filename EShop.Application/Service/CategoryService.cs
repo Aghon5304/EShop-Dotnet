@@ -12,13 +12,12 @@ public class CategoryService : ICategoryService
 	private readonly IRepository _repository;
 	private readonly IDatabase _redisdb;
     private readonly IMemoryCache _cache;
-    public CategoryService(IRepository repository, IMemoryCache cache)
+    public CategoryService(IRepository repository, IMemoryCache cache, IDatabase redisdb)
     { 
         _repository = repository;
         _cache = cache;
-        var redis = ConnectionMultiplexer.Connect("redis:6379");
-		_redisdb = redis.GetDatabase();
-	}
+        _redisdb = redisdb;
+    }
 	public async Task<Category> AddAsync(string Name)
 	{
         var category = new Category
