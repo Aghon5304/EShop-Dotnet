@@ -21,6 +21,7 @@ builder.Services.AddSingleton<ICartRepository, InMemoryCartRepository>();
 builder.Services.AddSingleton<ICartAdder, CartService>();
 builder.Services.AddSingleton<ICartRemover, CartService>();
 builder.Services.AddSingleton<ICartReader, CartService>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

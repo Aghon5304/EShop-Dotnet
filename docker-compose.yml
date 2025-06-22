@@ -5,7 +5,7 @@ services:
       - db
       - userservice
     environment:
-      - CONNECTION_STRING=Server=${DB_HOST};Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True;
+      - CONNECTION_STRING=Server=${DB_HOST};Database=${DB_NAME};User Id=${DB_USER};Password=${SA_PASSWORD};Encrypt=False;TrustServerCertificate=True; 
     build:
       context: .
       dockerfile: EShopService/Dockerfile
@@ -42,7 +42,10 @@ services:
       - db
       - kafka
     environment:
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092;
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
     build:
       context: .
       dockerfile: NotificationService/Dockerfile

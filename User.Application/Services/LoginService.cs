@@ -29,10 +29,10 @@ namespace User.Application.Services
             }
             else if(email == userLogin.Email && password == userLogin.PasswordHash)
             {
-                var roles = new List<string> { "Client", "Employee", "Administrator" };
+                var roles = userLogin.Roles.Select(role => role.Name).ToList();
                 var token = _jwtTokenService.GenerateToken(123, roles);
                 _userLoggedIdsQueue.Enqueue(123);
-                _kafkaProducer.SendMessageAsync("after-login-email-topic", "email");
+                _kafkaProducer.SendMessageAsync("after-login-email-topic", userLogin.Email);
                 return token;
             }
             else

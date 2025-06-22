@@ -34,18 +34,18 @@ public class ProductController(IProductService productService) : ControllerBase
         }
 		}
 
-		// POST api/<ProductController>
-		[Authorize(Policy = "EmployeeOnly")]
-		[HttpPost]
+	// POST api/<ProductController>
+	[Authorize(Policy = "EmployeeOnly")]
+	[HttpPost]
     public async Task<ActionResult> Post([FromBody]Product product)
     {
         var result = await _productService.AddAsync(product);
         return Ok(result);
 		}
 
-		// PUT api/<ProductController>/id
-		[Authorize(Policy = "EmployeeOnly")]
-		[HttpPut("{id}")]
+	// PUT api/<ProductController>/id
+	[Authorize(Policy = "EmployeeOnly")]
+	[HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody]Product product)
     {
         var result = await _productService.UpdateAsync(product);

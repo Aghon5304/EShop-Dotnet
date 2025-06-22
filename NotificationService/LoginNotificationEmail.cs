@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Azure.Storage.Queues.Models;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
@@ -19,43 +20,44 @@ public class LoginNotificationEmail
 
     [Function(nameof(LoginNotificationEmail))]
     public async Task Run([KafkaTrigger(
-            "localhost:9092",
+            "kafka:9092",
             "after-login-email-topic",
             ConsumerGroup = "function-consumer-group")] KafkaMessage message)
     {
-        _logger.LogInformation($"Odebrano wiadomoœæ z Kafki: {message.ToString()}");
-        await SendEmailAsync("Zosta³eœ pomyœlnie zalogowany", message.Value);
+        _logger.LogInformation($"Odebrano wiadomoÅ›Ä‡ z Kafki: {message.ToString()}");
+        await SendEmailAsync("ZostaÅ‚eÅ› pomyÅ›lnie zalogowany", message.Value);
 
     }
-    static async Task SendEmailAsync(string message, string toEmail)
+
+    static async Task SendEmailAsync(string Message, string toEmail)
     {
         try
         {
-            string smtpHost = Environment.GetEnvironmentVariable("smtpHost");
+            string? smtpHost = Environment.GetEnvironmentVariable("SMTP_HOST");
             int smtpPort = 587;
             using (var client = new SmtpClient(smtpHost, smtpPort))
             {
                 client.EnableSsl = true;
-                string smtpUsername = Environment.GetEnvironmentVariable("smtpUsername");
-                string smtpPassword = Environment.GetEnvironmentVariable("smtpPassword");
+                string? smtpUsername = Environment.GetEnvironmentVariable("SMTP_USERNAME");
+                string? smtpPassword = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
                 client.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
 
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(smtpUsername),
-                    Subject = "Wiadomoœæ z Kafki",
-                    Body = message,
+                    Subject = "WiadomoÅ›Ä‡ z Kafki",
+                    Body = Message,
                     IsBodyHtml = false
                 };
                 mailMessage.To.Add(toEmail);
 
                 await client.SendMailAsync(mailMessage);
-                Console.WriteLine($"E-mail wys³any do {toEmail} z wiadomoœci¹: {message}");
+                Console.WriteLine($"E-mail wysÅ‚any do {toEmail} z wiadomoÅ›ciÄ…: {Message}");
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"B³¹d podczas wysy³ania e-maila: {ex.Message}");
+            Console.WriteLine($"BÅ‚Ä…d podczas wysyÅ‚ania e-maila: {ex.Message}");
         }
     }
 }

@@ -72,7 +72,8 @@ public class Repository(DataContext context) : IRepository
             {
                 Id = x.Id,
                 Email = x.Email,
-                PasswordHash = x.PasswordHash
+                PasswordHash = x.PasswordHash,
+                Roles = x.Roles
             })
             .FirstOrDefaultAsync() ?? throw new NoUserWithEmail();
     }
