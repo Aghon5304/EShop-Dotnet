@@ -18,7 +18,8 @@ public class Repository(DataContext context) : IRepository
     #region User
     public async Task<UserCreateDTO> AddUserAsync(UserCreateDTO users)
     {
-        await _context.AddAsync(users);
+        var user = new User.Domain.Models.Entities.User { Username = users.Username, Email = users.Email, PasswordHash = users.PasswordHash, Roles = new List<Role> { _context.Role.First(r => r.Name == "User") } };
+        await _context.User.AddAsync(user);
         await _context.SaveChangesAsync();
         return users;
     }

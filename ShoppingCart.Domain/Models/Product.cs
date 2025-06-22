@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.Domain.Models;
 
-public class Cart
+public class Product
 {
     public int Id { get; set; }
-    public List<Product> Products { get; set; } = new List<Product>();
+    public string Name { get; set; }
+    public decimal Price { get; set; }
 }

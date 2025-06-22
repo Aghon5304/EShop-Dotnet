@@ -1,5 +1,4 @@
-﻿using EShop.Domain.Models;
-using ShoppingCart.Domain.Interfaces;
+﻿using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using ShoppingCart.Infrastructure.Repositories;
 

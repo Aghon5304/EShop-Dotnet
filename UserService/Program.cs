@@ -31,10 +31,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 
-builder.Services.AddAuthorizationBuilder()
-	.AddPolicy("AdminOnly", policy =>
-		policy.RequireRole("Administrator"));
-
 // JWT config
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 builder.Services.Configure<JwtSettings>(jwtSettings);
@@ -69,11 +65,13 @@ builder.Services.AddSwaggerGen(c =>
 		  }
 		});
 });
+
 builder.Services.AddAuthorizationBuilder()
 	.AddPolicy("AdminOnly", policy =>
 		policy.RequireRole("Administrator"))
 	.AddPolicy("EmployeeOnly", policy =>
-		policy.RequireRole("Employee"));
+		policy.RequireRole("Employee", "Administrator"));
+
 builder.Services.AddAuthentication(options =>
 {
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -119,8 +117,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

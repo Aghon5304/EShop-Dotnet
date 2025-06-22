@@ -11,4 +11,6 @@ public class AddProductToCartCommand:IRequest
 {
     public int CartId { get; set; }
     public int ProductId { get; set; }
+    public string ProductName { get; set; }
+    public decimal ProductPrice { get; set; }
 }
