@@ -10,12 +10,11 @@ public class ProductService : IProductService
 	private readonly IRepository _repository;
     private readonly IDatabase _redisdb;
     private readonly IMemoryCache _cache;
-    public ProductService(IRepository repository, IMemoryCache cache)
+    public ProductService(IRepository repository, IMemoryCache cache, IDatabase redisdb)
     {
         _repository = repository;
         _cache = cache;
-        var redis = ConnectionMultiplexer.Connect("redis:6379");
-        _redisdb = redis.GetDatabase();
+        _redisdb = redisdb;
     }
     public async Task<Product> AddAsync(Product product)
     {
