@@ -15,15 +15,17 @@
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
     <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\User.Application\User.Application.csproj" />
-    <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
+    <ProjectReference Include="..\ShoppingCart\ShoppingCart.csproj" />
+    <ProjectReference Include="..\ShoppingCart.Domain\ShoppingCart.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
-</Project>
+</Project> 
