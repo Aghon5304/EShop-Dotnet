@@ -42,7 +42,9 @@ public class CartService : ICartAdder, ICartReader, ICartRemover
             Id = cart.Id,
             Products = cart.Products.Select(p => new Product
             {
-                Id = p.Id
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price
             }).ToList()
         };
     }
@@ -54,8 +56,17 @@ public class CartService : ICartAdder, ICartReader, ICartRemover
             Id = c.Id,
             Products = c.Products.Select(p => new Product
             {
-                Id = p.Id
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price
             }).ToList()
         }).ToList();
+    }
+    public void ProcessCart(int cartId)
+    {
+        var cart = _repository.FindById(cartId);
+        if (cart == null) throw new Exception("Cart not found");
+        cart.Products.Clear();
+        _repository.Update(cart);
     }
 }
