@@ -22,10 +22,10 @@ namespace User.Application.Services
             _kafkaProducer = kafkaProducer;
             _userRepository = userRepository;
         }
-        public string Login(string email, string password)
+        public async Task<string> Login(string email, string password)
         {
-            var userLogin = _userRepository.GetUserLoginAsync(email).Result;
-            if (userLogin==null)
+            var userLogin = await _userRepository.GetUserLoginAsync(email);
+            if (userLogin == null)
             {
                 throw new InvalidCredentialsException();
             }
@@ -34,8 +34,8 @@ namespace User.Application.Services
                 var roles = userLogin.Roles.Select(role => role.Name).ToList();
                 var token = _jwtTokenService.GenerateToken(userLogin.Id, roles);
                 _userLoggedIdsQueue.Enqueue(userLogin.Id);
-                _kafkaProducer.SendMessageAsync("after-login-email-topic", userLogin.Email);
-                _userRepository.UpdateUserLastLogIn(new UserUpdateLoginAtDTO { Id = userLogin.Id, LastLoginAt = DateTime.UtcNow} );
+                await _kafkaProducer.SendMessageAsync("after-login-email-topic", userLogin.Email);
+                await _userRepository.UpdateUserLastLogIn(new UserUpdateLoginAtDTO { Id = userLogin.Id, LastLoginAt = DateTime.UtcNow });
 
                 return token;
             }
