@@ -71,8 +71,8 @@ public class CategoryServiceTests
         _redisMock.Setup(r => r.StringGetAsync($"category:{categoryId}", It.IsAny<CommandFlags>()))
                   .ReturnsAsync(RedisValue.Null);
         _repositoryMock.Setup(r => r.GetCategoryByIdAsync(categoryId)).ReturnsAsync(category);
-        _redisMock.Setup(r => r.StringSetAsync($"category:{categoryId}", 
-                                               JsonSerializer.Serialize(category), 
+        _redisMock.Setup(r => r.StringSetAsync($"category:{categoryId}",
+                                               JsonSerializer.Serialize(category, new JsonSerializerOptions()), 
                                                TimeSpan.FromDays(1), 
                                                It.IsAny<When>(), 
                                                It.IsAny<CommandFlags>()))

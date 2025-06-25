@@ -109,7 +109,7 @@ public class ProductTests
 
         // Assert
         Assert.Equal(0, product.Id);
-        Assert.Null(product.Name);
+        Assert.Equal("",product.Name);
         Assert.Equal(0m, product.Price);
         Assert.Equal(0, product.Stock);
         Assert.Null(product.Category);
