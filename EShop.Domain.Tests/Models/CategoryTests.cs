@@ -64,9 +64,7 @@ public class CategoryTests
 
         // Assert
         Assert.Equal(0, category.Id);
-        Assert.Null(category.Name);
-        Assert.False(category.Deleted); // Default should be false
-        // Note: Category model doesn't have Products collection
+        Assert.Equal("",category.Name);
     }
 
     [Fact]

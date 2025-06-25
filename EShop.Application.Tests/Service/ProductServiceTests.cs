@@ -75,12 +75,13 @@ public class ProductServiceTests
         _redisMock.Setup(r => r.StringGetAsync($"Product:{productId}", It.IsAny<CommandFlags>()))
                   .ReturnsAsync(RedisValue.Null);
         _repositoryMock.Setup(r => r.GetProductByIdAsync(productId)).ReturnsAsync(product);
-        _redisMock.Setup(r => r.StringSetAsync($"Product:{productId}", 
-                                               JsonSerializer.Serialize(product), 
-                                               TimeSpan.FromDays(1), 
-                                               It.IsAny<When>(), 
-                                               It.IsAny<CommandFlags>()))
-                  .ReturnsAsync(true);
+        _redisMock.Setup(r => r.StringSetAsync(
+            $"Product:{productId}",
+            JsonSerializer.Serialize(product, new JsonSerializerOptions()),
+            TimeSpan.FromDays(1),
+            When.Always,
+            CommandFlags.None
+        )).ReturnsAsync(true);
 
         // Act
         var result = await _productService.GetAsync(productId);
