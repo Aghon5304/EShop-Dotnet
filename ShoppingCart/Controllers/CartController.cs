@@ -40,4 +40,10 @@ public class CartController : Controller
         var result = await _mediator.Send(query);
         return Ok(result);
     }
+    [HttpPost("procces-cart")]
+    public async Task<IActionResult> ProcessCart([FromBody] ProcessCartCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok();
+    }
 }

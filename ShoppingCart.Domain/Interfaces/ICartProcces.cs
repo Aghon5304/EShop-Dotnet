@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShoppingCart.Application.QueryHandlers;
+namespace ShoppingCart.Domain.Interfaces;
 
-public class ProcessCartCommandHandler
+public interface ICartProcess
 {
-    
+    string ProcessCart(int cartId, string email);
 }

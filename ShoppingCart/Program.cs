@@ -1,5 +1,6 @@
 using ShoppingCart.Application.Services;
 using ShoppingCart.Domain.Interfaces;
+using ShoppingCart.Infrastructure.Producer;
 using ShoppingCart.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,8 @@ builder.Services.AddSingleton<ICartRepository, InMemoryCartRepository>();
 builder.Services.AddSingleton<ICartAdder, CartService>();
 builder.Services.AddSingleton<ICartRemover, CartService>();
 builder.Services.AddSingleton<ICartReader, CartService>();
+builder.Services.AddSingleton<ICartProcess, CartService>();
+builder.Services.AddSingleton<IKafkaProducer, KafkaProducer>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
