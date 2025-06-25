@@ -47,7 +47,8 @@ public class Repository(DataContext context) : IRepository
                 Username = x.Username,
                 Email = x.Email,
                 CreatedAt = x.CreatedAt,
-                LastLoginAt = x.LastLoginAt
+                LastLoginAt = x.LastLoginAt,
+                Roles = x.Roles
             })
             .FirstOrDefaultAsync() ?? throw new UserIdNotFoundException(); 
     }
@@ -61,7 +62,8 @@ public class Repository(DataContext context) : IRepository
                 Username = x.Username,
                 Email = x.Email,
                 CreatedAt = x.CreatedAt,
-                LastLoginAt = x.LastLoginAt
+                LastLoginAt = x.LastLoginAt,
+                Roles = x.Roles
             }).ToListAsync();
     }
     public async Task<UserLoginDTO> GetUserLoginAsync(string email)
@@ -87,7 +89,6 @@ public class Repository(DataContext context) : IRepository
 
         userEntity.Username = users.Username ?? userEntity.Username;
         userEntity.Email = users.Email ?? userEntity.Email;
-        userEntity.PasswordHash = users.PasswordHash ?? userEntity.PasswordHash;
 
         if (users.Roles != null)
         {
@@ -99,6 +100,25 @@ public class Repository(DataContext context) : IRepository
             }
         }
 
+        await _context.SaveChangesAsync();
+        return users;
+    }
+    public async Task<UserUpdatePasswordDTO> UpdateUserPasswordAsync(UserUpdatePasswordDTO users)
+    {
+        var userEntity = await _context.User.FirstOrDefaultAsync(u => u.Id == users.UserId);
+        if (userEntity == null)
+            throw new UserIdNotFoundException();
+        userEntity.PasswordHash = users.PasswordHash;
+        await _context.SaveChangesAsync();
+        return users;
+    }
+
+    public async Task<UserUpdateLoginAtDTO> UpdateUserLastLogIn(UserUpdateLoginAtDTO users)
+    {
+        var userEntity = await _context.User.FirstOrDefaultAsync(u => u.Id == users.Id);
+        if (userEntity == null)
+            throw new UserIdNotFoundException();
+        userEntity.LastLoginAt = users.LastLoginAt;
         await _context.SaveChangesAsync();
         return users;
     }
