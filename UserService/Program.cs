@@ -70,7 +70,9 @@ builder.Services.AddAuthorizationBuilder()
 	.AddPolicy("AdminOnly", policy =>
 		policy.RequireRole("Administrator"))
 	.AddPolicy("EmployeeOnly", policy =>
-		policy.RequireRole("Employee", "Administrator"));
+		policy.RequireRole("Employee", "Administrator"))
+	.AddPolicy("User", policy =>
+		policy.RequireRole("Administrator", "User", "Employee"));
 
 builder.Services.AddAuthentication(options =>
 {

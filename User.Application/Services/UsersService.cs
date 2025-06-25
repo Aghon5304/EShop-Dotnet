@@ -26,6 +26,10 @@ public class UserService(IRepository repository) : IUserService
     {
         return await _repository.UpdateUserAsync(users);
     }
+    public async Task<UserUpdatePasswordDTO> UpdatePassword(UserUpdatePasswordDTO users)
+    {
+        return await _repository.UpdateUserPasswordAsync(users);
+    }
 
     public async Task Delete(int id)
     {

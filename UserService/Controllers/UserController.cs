@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Data;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using User.Application.Services;
 using User.Domain.Models.Entities;
@@ -52,8 +54,8 @@ public class UserController: ControllerBase
 
     // PUT api/<UserController>/id
     [Authorize(Policy = "EmployeeOnly")]
-    [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, [FromBody] UserUpdateDTO users)
+    [HttpPut()]
+    public async Task<ActionResult> Put([FromBody] UserUpdateDTO users)
     {
         var result = await _userService.Update(users);
         return Ok(result);
@@ -67,5 +69,19 @@ public class UserController: ControllerBase
         await _userService.Delete(id);
 
         return Ok();
+    }
+    [HttpPut("UpdatePassword/")]
+    [Authorize(Policy = "User")]
+    public async Task<ActionResult> UpdatePassword([FromBody] UserUpdatePasswordDTO users)
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+        var roles = User.FindAll(ClaimTypes.Role).Select(r => r.Value).ToList();
+        var userid = int.TryParse(userIdClaim.Value, out int userId);
+        if (userId != users.UserId && !roles.Contains("Administrator"))
+        {
+            return Unauthorized("you are not logged into account you are editing and you don't have administrative rights");
+        }
+        var result = await _userService.UpdatePassword(users);
+        return Ok(result);
     }
 }

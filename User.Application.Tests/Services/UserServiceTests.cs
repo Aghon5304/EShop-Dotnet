@@ -1,5 +1,6 @@
 using Moq;
 using User.Application.Services;
+using User.Domain.Models.Entities;
 using User.Domain.Models.Response;
 using User.Domain.Repositories;
 
@@ -22,9 +23,9 @@ public class UserServiceTests
         // Arrange
         var userCreateDto = new UserCreateDTO
         {
-            FirstName = "John",
-            LastName = "Doe",
-            Email = "john@example.com"
+            Username = "johndoe",
+            Email = "john@example.com",
+            PasswordHash = "hashedpassword"
         };
 
         _repositoryMock.Setup(r => r.AddUserAsync(userCreateDto))
@@ -34,7 +35,9 @@ public class UserServiceTests
         var result = await _userService.Add(userCreateDto);
 
         // Assert
-        Assert.Equal(userCreateDto, result);
+        Assert.Equal(userCreateDto.Username, result.Username);
+        Assert.Equal(userCreateDto.Email, result.Email);
+        Assert.Equal(userCreateDto.PasswordHash, result.PasswordHash);
         _repositoryMock.Verify(r => r.AddUserAsync(userCreateDto), Times.Once);
     }
 
@@ -44,8 +47,8 @@ public class UserServiceTests
         // Arrange
         var users = new List<UserResponseDTO>
         {
-            new() { Id = 1, FirstName = "John", LastName = "Doe", Email = "john@example.com" },
-            new() { Id = 2, FirstName = "Jane", LastName = "Smith", Email = "jane@example.com" }
+            new() { Id = 1, Username = "johndoe", Email = "john@example.com", CreatedAt = DateTime.UtcNow, Roles = new List<Role>() },
+            new() { Id = 2, Username = "janesmith", Email = "jane@example.com", CreatedAt = DateTime.UtcNow, Roles = new List<Role>() }
         };
 
         _repositoryMock.Setup(r => r.GetUserAsync())
@@ -55,7 +58,9 @@ public class UserServiceTests
         var result = await _userService.GetAllAsync();
 
         // Assert
-        Assert.Equal(users, result);
+        Assert.Equal(users.Count, result.Count);
+        Assert.Equal(users[0].Id, result[0].Id);
+        Assert.Equal(users[1].Id, result[1].Id);
         _repositoryMock.Verify(r => r.GetUserAsync(), Times.Once);
     }
 
@@ -67,9 +72,10 @@ public class UserServiceTests
         var user = new UserResponseDTO
         {
             Id = userId,
-            FirstName = "John",
-            LastName = "Doe",
-            Email = "john@example.com"
+            Username = "johndoe",
+            Email = "john@example.com",
+            CreatedAt = DateTime.UtcNow,
+            Roles = new List<Role>()
         };
 
         _repositoryMock.Setup(r => r.GetUserByIdAsync(userId))
@@ -79,7 +85,10 @@ public class UserServiceTests
         var result = await _userService.GetAsync(userId);
 
         // Assert
-        Assert.Equal(user, result);
+        Assert.NotNull(result);
+        Assert.Equal(user.Id, result.Id);
+        Assert.Equal(user.Username, result.Username);
+        Assert.Equal(user.Email, result.Email);
         _repositoryMock.Verify(r => r.GetUserByIdAsync(userId), Times.Once);
     }
 
@@ -90,9 +99,9 @@ public class UserServiceTests
         var userUpdateDto = new UserUpdateDTO
         {
             Id = 1,
-            FirstName = "John Updated",
-            LastName = "Doe Updated",
-            Email = "johnupdated@example.com"
+            Username = "johnupdated",
+            Email = "johnupdated@example.com",
+            Roles = new List<Role>()
         };
 
         _repositoryMock.Setup(r => r.UpdateUserAsync(userUpdateDto))
@@ -102,7 +111,9 @@ public class UserServiceTests
         var result = await _userService.Update(userUpdateDto);
 
         // Assert
-        Assert.Equal(userUpdateDto, result);
+        Assert.Equal(userUpdateDto.Id, result.Id);
+        Assert.Equal(userUpdateDto.Username, result.Username);
+        Assert.Equal(userUpdateDto.Email, result.Email);
         _repositoryMock.Verify(r => r.UpdateUserAsync(userUpdateDto), Times.Once);
     }
 
@@ -128,8 +139,10 @@ public class UserServiceTests
         var email = "test@example.com";
         var userLogin = new UserLoginDTO
         {
+            Id = 1,
             Email = email,
-            PasswordHash = "hashedpassword"
+            PasswordHash = "hashedpassword",
+            Roles = new List<Role>()
         };
 
         _repositoryMock.Setup(r => r.GetUserLoginAsync(email))
@@ -139,7 +152,10 @@ public class UserServiceTests
         var result = await _userService.GetLoginAsync(email);
 
         // Assert
-        Assert.Equal(userLogin, result);
+        Assert.NotNull(result);
+        Assert.Equal(userLogin.Id, result.Id);
+        Assert.Equal(userLogin.Email, result.Email);
+        Assert.Equal(userLogin.PasswordHash, result.PasswordHash);
         _repositoryMock.Verify(r => r.GetUserLoginAsync(email), Times.Once);
     }
 

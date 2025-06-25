@@ -15,6 +15,7 @@ namespace User.Application.Services
         Task<UserResponseDTO> GetAsync(int id);
         Task<UserLoginDTO> GetLoginAsync(string email);
         Task<UserUpdateDTO> Update(UserUpdateDTO users);
+        Task<UserUpdatePasswordDTO> UpdatePassword(UserUpdatePasswordDTO users);
         Task<UserCreateDTO> Add(UserCreateDTO users);
         Task Delete(int id);
     }

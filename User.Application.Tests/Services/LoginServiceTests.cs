@@ -20,10 +20,12 @@ public class LoginServiceTests
         _jwtTokenServiceMock = new Mock<IJwtTokenService>();
         _kafkaProducerMock = new Mock<IKafkaProducer>();
         _repositoryMock = new Mock<IRepository>();
+        var contextMock = new Mock<DataContext>();
         _loginService = new LoginService(
             _jwtTokenServiceMock.Object,
             _kafkaProducerMock.Object,
-            _repositoryMock.Object);
+            _repositoryMock.Object,
+            contextMock.Object);
     }
 
     [Fact]
